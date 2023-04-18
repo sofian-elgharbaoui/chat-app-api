@@ -17,17 +17,27 @@ const getUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { firstName, lastName, location, occupation } = req.body;
+  const {
+    firstName,
+    lastName,
+    location,
+    occupation,
+    CLIENT_ID,
+    CLIENT_SECRET,
+  } = req.body;
+
   let dataToUpdate = {};
   if (firstName) dataToUpdate.firstName = firstName;
   if (lastName) dataToUpdate.lastName = lastName;
   if (location) dataToUpdate.location = location;
   if (occupation) dataToUpdate.occupation = occupation;
+  if (CLIENT_ID) dataToUpdate.CLIENT_ID = CLIENT_ID;
+  if (CLIENT_SECRET) dataToUpdate.CLIENT_SECRET = CLIENT_SECRET;
 
   const userInfo = await User.findByIdAndUpdate(id, dataToUpdate, {
     new: true,
     runValidators: true,
-  }).select("-password");
+  }).select("-password -CLIENT_SECRET -CLIENT_ID");
   if (!userInfo) {
     throw new BadRequestErr(`there is no user with this id: ${id}`);
   }

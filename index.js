@@ -21,20 +21,25 @@ app.use("/assets", express.static(path.join(__dirname, "/public/assets")));
 // error middleware
 const errorsHandler = require("./middlewares/errors_handler");
 
+// establish the chat
+require("./controllers/chat")(app);
+
 // routers
 const authRouter = require("./routes/auth");
 const userRouter = require("./routes/user");
-const postsRouter = require("./routes/posts");
+const productsRouter = require("./routes/products");
+const checkoutRouter = require("./routes/checkout");
 
 app.get("/", (req, res) => {
   res.status(200).sendFile(path.join(__dirname, "/public/index.html"));
 });
 
-app.use("/posts", postsRouter);
+app.use("/products", productsRouter);
 // I put this middleware below, So I don't want to see the posts route logges
 app.use(morgan("common"));
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
+app.use("/checkout", checkoutRouter);
 
 app.use(errorsHandler);
 

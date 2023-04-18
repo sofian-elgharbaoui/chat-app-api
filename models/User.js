@@ -60,6 +60,14 @@ const userSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    CLIENT_ID: {
+      type: String,
+      default: "",
+    },
+    CLIENT_SECRET: {
+      type: String,
+      default: "",
+    },
   },
   { timestamps: true }
 );

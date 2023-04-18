@@ -28,7 +28,8 @@ const registerUser = async (req, res) => {
   }
 
   // remember, I must write User.create(), not just User()
-  //(if I want to do that, then I should put the new keyword before User(), which refers to a new instance)
+  //(if I want to do that, then I should put the new keyword before User(),
+  // which refers to a new instance and save it later with teh save() method)
   await User.create(inputsInfo);
   res
     .status(StatusCodes.CREATED)
